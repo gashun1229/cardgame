@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <META charset="UTF-8">
+  <style>
+    .sheet {
+      text-align: center;
+    }
+
+    .drag-and-drop {
+      cursor: move;
+      position: absolute;
+      z-index: 1000;
+      color: #fff;
+    }
+
+    img.card {
+      width: 130px;
+      border-radius: 10px;
+    }
+
+    .drag {
+      z-index: 1001
+    }
+
+    #box01 {
+      top: 0;
+      left: 0;
+    }
+
+    #box02 {
+      top: 0;
+      left: 130px;
+    }
+
+    #box03 {
+      top: 0;
+      left: 260px;
+    }
+    #box04 {
+      top: 0;
+      left: 390px;
+    }
+    #box05 {
+      top: 0;
+      left: 520px;
+    }
+    #box06 {
+      top: 0;
+      left: 650px;
+    }
+    #box07 {
+      top: 0;
+      left: 780px;
+    }
+    #box08 {
+      top: 0;
+      left: 910px;
+    }
+    #box09 {
+      top: 0;
+      left: 1040px;
+    }
+    #box10 {
+      top: 0;
+      left: 1170px;
+    }
+    #box11 {
+      top: 90;
+      left: 0px;
+    }
+    #box12 {
+      top: 90;
+      left: 130px;
+    }
+    #box13 {
+      top: 90;
+      left: 260px;
+    }
+    #box14 {
+      top: 90;
+      left: 390px;
+    }
+    #box15 {
+      top: 90;
+      left: 520px;
+    }
+    #box16 {
+      top: 90;
+      left: 650px;
+    }
+    #box17 {
+      top: 90;
+      left: 780px;
+    }
+    #box18 {
+      top: 90;
+      left: 910px;
+    }
+    #box19 {
+      top: 90;
+      left: 1040px;
+    }
+    #box20 {
+      top: 90;
+      left: 1170px;
+    }
+    #relative {
+      position: relative;
+      height: 100px
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="sheet">
+    <img src="地球サイクル.001.jpeg">
+  </div>
+  <section>
+    <p>カードを当てはめてみよう！</p>
+
+    <div id="relative">
+      <div class="drag-and-drop" id="box01"><img src="地球温暖化.png" class="card"></div>
+      <div class="drag-and-drop" id="box02"><img src="地球寒冷化.png" class="card"></div>
+      <div class="drag-and-drop" id="box03"><img src="プレートテクトニクス.png" class="card"></div>
+      <div class="drag-and-drop" id="box04"><img src="火山の噴火.png" class="card"></div>
+      <div class="drag-and-drop" id="box05"><img src="大気にCO２が増える.png" class="card"></div>
+      <div class="drag-and-drop" id="box06"><img src="大気の大循環が強まる.png" class="card"></div>
+      <div class="drag-and-drop" id="box07"><img src="雨に溶けるCO2が増える.png" class="card"></div>
+      <div class="drag-and-drop" id="box08"><img src="大気のCO2が減る.png" class="card"></div>
+      <div class="drag-and-drop" id="box09"><img src="大気の大循環が弱まる.png" class="card"></div>
+      <div class="drag-and-drop" id="box10"><img src="CO2が溶けない.png" class="card"></div>
+    </div>
+    <div id="relative">
+      <div class="drag-and-drop" id="box11"><img src="氷河が減る.png" class="card"></div>
+      <div class="drag-and-drop" id="box12"><img src="大地が温まる.png" class="card"></div>
+      <div class="drag-and-drop" id="box13"><img src="氷河が溶けすぎる.png" class="card"></div>
+      <div class="drag-and-drop" id="box14"><img src="海の巡りが止まる.png" class="card"></div>
+      <div class="drag-and-drop" id="box15"><img src="赤道の熱が運ばれない.png" class="card"></div>
+      <div class="drag-and-drop" id="box16"><img src="海の巡りが始まる.png" class="card"></div>
+      <div class="drag-and-drop" id="box17"><img src="生命のめぐり.png" class="card"></div>
+      <div class="drag-and-drop" id="box18"><img src="CO2が深海へ.png" class="card"></div>
+      <div class="drag-and-drop" id="box19"><img src="氷河が増える.png" class="card"></div>
+      <div class="drag-and-drop" id="box20"><img src="太陽光を反射.png" class="card"></div>
+    </div>
+
+  </section>
+
+  <script>(function () {
+      var elements = document.getElementsByClassName("drag-and-drop");
+      var x;
+      var y;
+
+      for (var i = 0; i < elements.length; i++) {
+        elements[i].addEventListener("mousedown", mdown, false);
+        elements[i].addEventListener("touchstart", mdown, false);
+      }
+
+      function mdown(e) {
+        this.classList.add("drag");
+        if (e.type === "mousedown") {
+          var event = e;
+        } else {
+          var event = e.changedTouches[0];
+        }
+        x = event.pageX - this.offsetLeft;
+        y = event.pageY - this.offsetTop;
+        var drag = this;
+        document.body.addEventListener("mousemove", mmove, false);
+        document.body.addEventListener("touchmove", mmove, false);
+      }
+
+      function mmove(e) {
+        var drag = document.getElementsByClassName("drag")[0];
+        if (e.type === "mousemove") {
+          var event = e;
+        } else {
+          var event = e.changedTouches[0];
+        }
+        e.preventDefault();
+        drag.style.top = event.pageY - y + "px";
+        drag.style.left = event.pageX - x + "px";
+        drag.addEventListener("mouseup", mup, false);
+        document.body.addEventListener("mouseleave", mup, false);
+        drag.addEventListener("touchend", mup, false);
+        document.body.addEventListener("touchleave", mup, false);
+
+      }
+
+      function mup(e) {
+        var drag = document.getElementsByClassName("drag")[0];
+        document.body.removeEventListener("mousemove", mmove, false);
+        drag.removeEventListener("mouseup", mup, false);
+        document.body.removeEventListener("touchmove", mmove, false);
+        drag.removeEventListener("touchend", mup, false);
+        drag.classList.remove("drag");
+      }
+
+    })()
+  </script>
+</body>
+</html>
